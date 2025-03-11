@@ -1,10 +1,7 @@
 package com.korea.shopitem.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(exclude = {"options", "imageList"})
 public class Item {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -95,5 +93,22 @@ public class Item {
     // 이미지 리스트 초기화
     public void clearList(){
         this.imageList.clear();
+    }
+
+    // 이름변경
+    public void changeName(String name) {
+        this.name = name;
+    }
+
+    public void changePrice(int price) {
+        this.price = price;
+    }
+
+    public void changeStockQuantity(int stockQty) {
+        this.stockQty = stockQty;
+    }
+
+    public void changeDelFlag(boolean delFlag) {
+        this.delFlag = delFlag;
     }
 }
