@@ -23,4 +23,7 @@ public class ItemOption {
     // 옵션값
     @Column(name = "option_value")
     private String value;
+
+    @Column(name="item_id")
+    private Long itemId;
 }

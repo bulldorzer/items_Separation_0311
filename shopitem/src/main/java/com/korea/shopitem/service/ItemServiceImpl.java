@@ -29,13 +29,21 @@ public class ItemServiceImpl implements ItemService{
                 .stockQty(itemDTO.getStockQty())
                 .delFlag(itemDTO.isDelFlag())
                 .build();
+        
+        Item savedItem = itemRepository.save(item); // 엔티티 아이디 생성
 
-        // 데이터 Map<String, List<String>>
+
+        // 옵션저장 - 데이터 Map<String, List<String>>
         if (itemDTO.getOptions() != null && !itemDTO.getOptions().isEmpty()) {
+            // 옵션id, option, value
             itemDTO.getOptions().forEach((option, values) -> {
                 values.forEach(value -> {
-                    ItemOption opt = ItemOption.builder().option(option).value(value).build();
-                    item.addOption(opt);
+                    ItemOption opt = ItemOption.builder()
+                            .option(option)
+                            .value(value)
+                            .itemId(savedItem.getId()) // 생성된 id추출하여 옵션에 값저장
+                            .build();
+                    item.addOption(opt); // item엔티티에 option 추가
                 });
             });
         }
@@ -47,9 +55,9 @@ public class ItemServiceImpl implements ItemService{
                             ItemImage.builder().fileName(fileName).build()
                     ));
         }
-        Item savedItem = itemRepository.save(item);
+        Item savedItemaddimage = itemRepository.save(item);
 
-        return new ItemDTO(savedItem);
+        return new ItemDTO(savedItemaddimage);
     }
 
     @Override
@@ -99,6 +107,9 @@ public class ItemServiceImpl implements ItemService{
         item.changePrice(itemDTO.getPrice());
         item.changeStockQuantity(itemDTO.getStockQty());
         item.changeDelFlag(item.isDelFlag());
+
+        itemRepository.save(item);
+
         return new ItemDTO(item);
     }
 
