@@ -30,7 +30,7 @@ public class Item {
     /*
      * 아이템 이미지
      * cascade = 부모데이터가 모든데이터변경작업시(CUD) 모든 자식까지 영향간다
-     * orphanRemoval = true = 부모의 데이터가 삭제될시 자식의 데이터까지 삭제 시키겠다.
+     * orphanRemoval = true = 부모가 삭제될시 자식까지 삭제 시키겠다.
      *  부모의 상태
      * - 저장 : persist
      * - 병합 : merge
